@@ -1,0 +1,74 @@
+﻿<head>
+    @{
+        ViewBag.Title = "Index";
+        Layout = "~/Views/Shared/_LayoutAcceso.cshtml";
+    }
+
+    <link rel="stylesheet" href="~/Content/Estilos.css" />
+</head>
+
+<body class="back">
+    <h2 style="text-align:center">Inicia Sesion</h2>
+    <form id="frmAcceder">
+        <div id="id01"
+             style="text-align: center; background: url(https://media.istockphoto.com/photos/modern-black-metallic-sedan-car-in-spotlight-banner-picture-id921871456?k=20&m=921871456&s=612x612&w=0&h=eSF9WRaZt82j4VuKIUvGd4g-bv6m59ApfOsYGhGHeLo=); background-size: 100%">
+
+            <div class="container">
+                @*<label for="unm"><b>Usuario</b></label>*@
+                <input type="text"
+                       id="inp01"
+                       placeholder="Usuario"
+                       name="usuario"
+                       required>
+                <br />
+                @*<label for="psw"><b>Password</b></label>*@
+                <input type="password"
+                       id="inp02"
+                       placeholder="Contraseña"
+                       name="password" required>
+                <br />
+                <button type="submit"
+                        class="button">
+                    Entrar
+                </button>
+                <br />
+                <label style="color:lightgray">
+                    <input type="checkbox"
+                           checked="checked"
+                           name="remember"> Recuerdame
+                            
+                </label>
+            </div>
+        </div>
+    </form>
+
+
+            @section scriptsAcceder {
+                <script>
+        $(document).ready(function () {
+            $("#frmAcceder").submit(function (e) {
+                e.preventDefault();
+                url = "@Url.Content("~/acceder/enter")"
+
+                parametros = $(this).serialize();
+
+                $.post(url, parametros, function (data) {
+                    if (data == 1) {
+                        document.location.href = "@Url.Content("~/Vehiculo/Index/")";
+                    }
+                    else {
+                        alert (data)
+                    }
+
+                })
+            })
+
+        })
+
+
+                </script>
+
+
+            }
+
+    </body>

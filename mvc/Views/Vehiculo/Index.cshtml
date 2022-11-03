@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    @model List<mvc.Models.TableVewModel.VehiculoTableViewModel>
+        @{ViewBag.Title = "Index";
+
+        }
+    <style>
+        table{
+            border-collapse:collapse;
+            border-spacing:0;
+            width:100%;
+            border: 1px solid #000;
+        }
+        th, td {
+            text-align:left;
+            padding: 8px;
+        }
+        tr:nth-child(even){
+            background-color: #a8a8a8;
+        }
+    </style>
+</head>
+<body>
+    <h2>Lista de Vehiculos</h2>
+    <br/>
+    <div>
+        <div class="col-lg-12">
+            <input type="button" class="btn btn-success" onclick="document.location.href='@Url.Content("~/Vehiculo/Add/")'" value="Agregar" />
+        </div>
+    </div>
+    <div>
+        <table class="table">
+            <tr>
+                <th colspan="20"></th>
+            </tr>
+            <tr class="table-bordered">
+                <th>ID</th>
+                <th>Marca</th>
+                <th>Modelo</th>
+                <th>Año</th>
+                <th>Condicion</th>
+                <th>Imagen</th>
+                <th> </th>
+            </tr>
+            @foreach(var nElemento in Model)
+            {
+                <tr class="table-bordered">
+                    <td>@nElemento.ID</td>
+                    <td>@nElemento.Marca</td>
+                    <td>@nElemento.Modelo</td>
+                    <td>@nElemento.Año</td>
+                    <td>@nElemento.Condicion</td>
+                    <td><img src="@nElemento.Imagen" width="200" height="100"></td>
+                    <td>
+                        <input onclick="jsBorrar(@nElemento.ID);" type="button" value="Borrar" class="btn-danger" />
+                        <input onclick="document.location.href='@Url.Content("~/Vehiculo/Edit/" + nElemento.ID)'" type="button" value="Editar" class="btn-info" />
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+    <script>
+        function jsBorrar(id) {
+            if (confirm("Desea eliminar el registro?")) {
+                url = "@Url.Content("~/Vehiculo/Delete/")" + id;
+
+                $.post(url, function (data) {
+                    if (data == 1) {
+                        document.location.href = "@Url.Content("~/Vehiculo")"
+                    } else {
+                        alert ("Ha ocurrido un error")
+                    }
+                }
+               )
+            }
+        }
+
+    </script>
+</body>
+
+</html>
+

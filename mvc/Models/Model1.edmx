@@ -1,0 +1,263 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DBVEHICULOSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CONDICION">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CONDICION" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="mESTATUS">
+          <Key>
+            <PropertyRef Name="ESTATUS" />
+          </Key>
+          <Property Name="ESTATUS" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DESCRIPCION" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="uEstatus">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ESTATUS" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="USER">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="PassWord" Type="nvarchar" MaxLength="50" />
+          <Property Name="Edad" Type="int" />
+          <Property Name="idEstatus" Type="int" />
+        </EntityType>
+        <EntityType Name="VEHICULO">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MARCA" Type="nvarchar" MaxLength="50" />
+          <Property Name="PRECIO" Type="float" />
+          <Property Name="CONDICION" Type="int" />
+          <Property Name="ESTATUS" Type="int" />
+          <Property Name="DETALLES" Type="text" />
+          <Property Name="FOTOS" Type="text" />
+          <Property Name="MODELO" Type="nvarchar" MaxLength="50" />
+          <Property Name="nYEAR" Type="int" />
+        </EntityType>
+        <Association Name="FK_USER_uEstatus">
+          <End Role="uEstatus" Type="Self.uEstatus" Multiplicity="0..1" />
+          <End Role="USER" Type="Self.USER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="uEstatus">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="USER">
+              <PropertyRef Name="idEstatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VEHICULO_mESTATUS">
+          <End Role="mESTATUS" Type="Self.mESTATUS" Multiplicity="0..1" />
+          <End Role="VEHICULO" Type="Self.VEHICULO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mESTATUS">
+              <PropertyRef Name="ESTATUS" />
+            </Principal>
+            <Dependent Role="VEHICULO">
+              <PropertyRef Name="ESTATUS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DBVEHICULOSModelStoreContainer">
+          <EntitySet Name="CONDICION" EntityType="Self.CONDICION" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="mESTATUS" EntityType="Self.mESTATUS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="uEstatus" EntityType="Self.uEstatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="USER" EntityType="Self.USER" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VEHICULO" EntityType="Self.VEHICULO" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_USER_uEstatus" Association="Self.FK_USER_uEstatus">
+            <End Role="uEstatus" EntitySet="uEstatus" />
+            <End Role="USER" EntitySet="USER" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VEHICULO_mESTATUS" Association="Self.FK_VEHICULO_mESTATUS">
+            <End Role="mESTATUS" EntitySet="mESTATUS" />
+            <End Role="VEHICULO" EntitySet="VEHICULO" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DBVEHICULOSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="DBVEHICULOSEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CONDICION" EntityType="DBVEHICULOSModel.CONDICION" />
+          <EntitySet Name="mESTATUS" EntityType="DBVEHICULOSModel.mESTATUS" />
+          <EntitySet Name="VEHICULO" EntityType="DBVEHICULOSModel.VEHICULO" />
+          <AssociationSet Name="FK_VEHICULO_mESTATUS" Association="DBVEHICULOSModel.FK_VEHICULO_mESTATUS">
+            <End Role="mESTATUS" EntitySet="mESTATUS" />
+            <End Role="VEHICULO" EntitySet="VEHICULO" />
+          </AssociationSet>
+          <EntitySet Name="uEstatus" EntityType="DBVEHICULOSModel.uEstatus" />
+          <EntitySet Name="USER" EntityType="DBVEHICULOSModel.USER" />
+          <AssociationSet Name="FK_USER_uEstatus" Association="DBVEHICULOSModel.FK_USER_uEstatus">
+            <End Role="uEstatus" EntitySet="uEstatus" />
+            <End Role="USER" EntitySet="USER" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="CONDICION">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CONDICION1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="mESTATUS">
+          <Key>
+            <PropertyRef Name="ESTATUS" />
+          </Key>
+          <Property Name="ESTATUS" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DESCRIPCION" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="VEHICULO" Relationship="DBVEHICULOSModel.FK_VEHICULO_mESTATUS" FromRole="mESTATUS" ToRole="VEHICULO" />
+        </EntityType>
+        <EntityType Name="VEHICULO">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MARCA" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PRECIO" Type="Double" />
+          <Property Name="CONDICION" Type="Int32" />
+          <Property Name="ESTATUS" Type="Int32" />
+          <Property Name="DETALLES" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="FOTOS" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="MODELO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="nYEAR" Type="Int32" />
+          <NavigationProperty Name="mESTATUS" Relationship="DBVEHICULOSModel.FK_VEHICULO_mESTATUS" FromRole="VEHICULO" ToRole="mESTATUS" />
+        </EntityType>
+        <Association Name="FK_VEHICULO_mESTATUS">
+          <End Type="DBVEHICULOSModel.mESTATUS" Role="mESTATUS" Multiplicity="0..1" />
+          <End Type="DBVEHICULOSModel.VEHICULO" Role="VEHICULO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mESTATUS">
+              <PropertyRef Name="ESTATUS" />
+            </Principal>
+            <Dependent Role="VEHICULO">
+              <PropertyRef Name="ESTATUS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="uEstatus">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ESTATUS" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="USER" Relationship="DBVEHICULOSModel.FK_USER_uEstatus" FromRole="uEstatus" ToRole="USER" />
+        </EntityType>
+        <EntityType Name="USER">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PassWord" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Edad" Type="Int32" />
+          <Property Name="idEstatus" Type="Int32" />
+          <NavigationProperty Name="uEstatus" Relationship="DBVEHICULOSModel.FK_USER_uEstatus" FromRole="USER" ToRole="uEstatus" />
+        </EntityType>
+        <Association Name="FK_USER_uEstatus">
+          <End Type="DBVEHICULOSModel.uEstatus" Role="uEstatus" Multiplicity="0..1" />
+          <End Type="DBVEHICULOSModel.USER" Role="USER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="uEstatus">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="USER">
+              <PropertyRef Name="idEstatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DBVEHICULOSModelStoreContainer" CdmEntityContainer="DBVEHICULOSEntities">
+          <EntitySetMapping Name="CONDICION">
+            <EntityTypeMapping TypeName="DBVEHICULOSModel.CONDICION">
+              <MappingFragment StoreEntitySet="CONDICION">
+                <ScalarProperty Name="CONDICION1" ColumnName="CONDICION" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="mESTATUS">
+            <EntityTypeMapping TypeName="DBVEHICULOSModel.mESTATUS">
+              <MappingFragment StoreEntitySet="mESTATUS">
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+                <ScalarProperty Name="ESTATUS" ColumnName="ESTATUS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VEHICULO">
+            <EntityTypeMapping TypeName="DBVEHICULOSModel.VEHICULO">
+              <MappingFragment StoreEntitySet="VEHICULO">
+                <ScalarProperty Name="nYEAR" ColumnName="nYEAR" />
+                <ScalarProperty Name="MODELO" ColumnName="MODELO" />
+                <ScalarProperty Name="FOTOS" ColumnName="FOTOS" />
+                <ScalarProperty Name="DETALLES" ColumnName="DETALLES" />
+                <ScalarProperty Name="ESTATUS" ColumnName="ESTATUS" />
+                <ScalarProperty Name="CONDICION" ColumnName="CONDICION" />
+                <ScalarProperty Name="PRECIO" ColumnName="PRECIO" />
+                <ScalarProperty Name="MARCA" ColumnName="MARCA" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="uEstatus">
+            <EntityTypeMapping TypeName="DBVEHICULOSModel.uEstatus">
+              <MappingFragment StoreEntitySet="uEstatus">
+                <ScalarProperty Name="ESTATUS" ColumnName="ESTATUS" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="USER">
+            <EntityTypeMapping TypeName="DBVEHICULOSModel.USER">
+              <MappingFragment StoreEntitySet="USER">
+                <ScalarProperty Name="idEstatus" ColumnName="idEstatus" />
+                <ScalarProperty Name="Edad" ColumnName="Edad" />
+                <ScalarProperty Name="PassWord" ColumnName="PassWord" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,40 @@
+﻿@model mvc.Models.ViewModels.VehiculoViewModel
+
+@{
+    ViewBag.Title = "Add";
+}
+
+<h2>Añade un vehiculo</h2>
+<br />
+<br />
+<div class="row justify-content-md-center">
+    <div class="col-md-5">
+        @using (Html.BeginForm("Add", "Vehiculo", FormMethod.Post, new { role = "form", @class = "" }))
+        {
+            @*@Html.AntiForgeryToken()*@
+
+            @Html.ValidationMessage("Error", new { @class = "text-danger" });
+
+            @Html.TextBoxFor(d => d.Marca, new { @class = "form-control", @placeholder = "Marca" })
+            @Html.ValidationMessage("Marca", new { @class = "badge badge-danger" })
+            <br />
+            @Html.TextBoxFor(d => d.Modelo, new { @class = "form-control", @placeholder = "Modelo" })
+            @Html.ValidationMessage("Modelo", new { @class = "badge badge-danger" })
+            <br />
+            @Html.TextBoxFor(d => d.Año, new { @class = "form-control", @placeholder = "Año" })
+            @Html.ValidationMessage("Año", new { @class = "badge badge-danger" })
+            <br />
+            @Html.TextBoxFor(d => d.Condicion, new { @class = "form-control", @placeholder = "Condicion" })
+            @Html.ValidationMessage("Condicon", new { @class = "badge badge-danger" })
+            <br />
+            @Html.TextBoxFor(d => d.Foto, new { @class = "form-control", @placeholder = "Foto" })
+            @Html.ValidationMessage("Foto", new { @class = "badge badge-danger" })
+            <br />
+
+            <div>
+                <button type="submit" class="btn-success">Registrar</button>
+            </div>
+        }
+
+    </div>
+</div>
